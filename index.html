@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Card PT. Nusantara Duta Solusindo</title>
+    <link rel="icon" href="logo.png" sizes="16x16" type="image/png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/inter');
+        body{
+           font-family: 'Inter';
+           padding-top:50px;
+	}
+	h3{
+	   font-size: 12.5px;
+    	   position: absolute;
+    	   top: 287px;
+    	   margin-left: 146px;
+	}
+	.fh2{
+    	   position: absolute;
+    	   top: 305px;
+    	   margin-left: 146px;
+	   max-width:140px;
+	}
+	h2{
+	   font-size: 19px;
+	   font-weight:bold;
+	   margin-bottom:3px
+	}
+	h4{
+	   font-size: 12.5px;
+	}
+	.img-2{
+	   width: 257px;
+    	   position: absolute;
+    	   margin-left: -295px;
+    	   top: 416.8px;
+	   z-index: 1;
+	}
+	.img{
+    	   height: 300px;
+    	   position: absolute;
+    	   margin-left: -295px;
+    	   top: 238px;	   
+	}
+	label{
+	   font-size:13.5px;
+	}
+    </style>    
+</head>
+<body>
+    <h1 class="text-center m-0">ID Card</h1>
+    <h5 class="text-center mb-5">PT. Nusantara Duta Solusindo</h5>
+    <div class="d-lg-flex col-12 col-lg-6 mx-auto">
+    <div id="content" class="mx-auto mx-lg-4 mb-4" style="width:max-content;border:2px solid #ddd">
+        <img src="2.png" style="width:300px">
+        <img src="2-1.png" class="img-2">
+	<img src="1.png" class="img" id="pict">
+	<h3 id="text-id">21-0123</h3>
+	<div class="fh2">
+	    <h2 id="text-name">First Name and Last Name</h2>
+	</div>
+    </div>
+    <div class="w-50 mx-auto mx-lg-0">
+        <input type="text" class="form-control mb-3" name="id" placeholder="Employee ID" onchange="return updateText()">
+        <input type="text" class="form-control mb-3" name="name" placeholder="Fullname" onchange="return updateText()">
+        <input type="file" class="form-control" name="foto" placeholder="Photo">
+	<label class="text-secondary">* Image size W:270 x H:600</label><br>
+	<label class="text-secondary mb-3">* Background transparent</label><br>
+	<button id="capture" class="btn btn-secondary py-2 px-4 me-2 mb-2">Download</button>
+	<a href="https://www.remove.bg/upload" target="_blank" class="btn btn-dark py-2 px-4 mb-2">Remove Background</a>
+	<a href="https://www.adobe.com/express/feature/image/resize" target="_blank" class="btn btn-dark py-2 px-4 mb-2">Resize & Crop</a>
+    </div>
+    <script>
+        document.getElementById('capture').addEventListener('click', () => {
+            html2canvas(document.getElementById('content')).then(canvas => {
+                // Convert the canvas to an image
+                const img = canvas.toDataURL('image/png');
+                
+                // Create a link to download the image
+                const link = document.createElement('a');
+                link.href = img;
+		var id = $('[name="id"]').val();
+		var name = $('[name="name"]').val();
+                link.download = 'ID CARD - '+id+" - "+name+".png";
+                link.click();
+            });
+        });
+	function updateText(){
+	    $("#text-id").html($('[name="id"]').val());
+	    $("#text-name").html($('[name="name"]').val());
+	    $("#text-position").html($('[name="position"]').val());
+	}
+	$(document).ready(function() {
+    	    $('[name="foto"]').on('change', function(event) {
+        	var file = event.target.files[0];
+        	if (file) {
+            	    var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#pict').attr('src', e.target.result);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+});
+    </script>
+</body>
+</html>
