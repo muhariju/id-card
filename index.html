@@ -77,7 +77,27 @@
 	<a href="https://www.remove.bg/upload" target="_blank" class="btn btn-dark py-2 px-4 mb-2">Remove Background</a>
 	<a href="https://www.adobe.com/express/feature/image/resize" target="_blank" class="btn btn-dark py-2 px-4 mb-2">Resize & Crop</a>
     </div>
-    <script>
+<audio id="myAudio" autoplay>
+  <source src="myAudio.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+	    <button onclick="return togglePlay()">Play</button>
+<script>
+  var myAudio = document.getElementById("myAudio");
+  var isPlaying = false;
+  function togglePlay() {
+    isPlaying ? myAudio.pause() : myAudio.play();
+  };
+  myAudio.onplaying = function() {
+    isPlaying = true;
+    $("#btn-audio").removeClass("fa-circle-play");
+    $("#btn-audio").addClass("fa-pause");
+  };
+  myAudio.onpause = function() {
+    isPlaying = false;
+    $("#btn-audio").removeClass("fa-pause");
+    $("#btn-audio").addClass("fa-circle-play");
+  };
         document.getElementById('capture').addEventListener('click', () => {
             html2canvas(document.getElementById('content')).then(canvas => {
                 // Convert the canvas to an image
